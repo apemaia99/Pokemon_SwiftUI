@@ -53,17 +53,19 @@ final class PokemonManager: ObservableObject {
         }
     }
     
-    func loadMore(firstCall: Bool = false) async {
-        do {
-            pokemonIndex = try await getPokemonIndex(
-                by: firstCall ? URL(string: "https://pokeapi.co/api/v2/pokemon/")! : self.pokemonIndex?.next
-            )
-            pokemonList.append(
-                contentsOf: try await getPokemons()
-            )
-            orderList(by: orderingMode)
-        } catch {
-            print(error)
+    func loadMore(firstCall: Bool = false) {
+        Task.detached { @MainActor in
+            do {
+                self.pokemonIndex = try await self.getPokemonIndex(
+                    by: firstCall ? URL(string: "https://pokeapi.co/api/v2/pokemon/")! : self.pokemonIndex?.next
+                )
+                self.pokemonList.append(
+                    contentsOf: try await self.getPokemons()
+                )
+                self.orderList(by: self.orderingMode)
+            } catch {
+                print(error)
+            }
         }
     }
     

@@ -19,9 +19,9 @@ struct PokedexView: View {
                     PokemonDetailed(pokemon: pokemon)
                 } label: {
                     PokedexRow(pokemon: pokemon)
-                }.task {
+                }.onAppear {
                     if pokemon == pokemonManager.pokemonList.last {
-                        await pokemonManager.loadMore()
+                        pokemonManager.loadMore()
                     }
                 }
             }
@@ -39,8 +39,8 @@ struct PokedexView: View {
             .navigationTitle("Pokedex")
         }
         .navigationViewStyle(.stack)
-        .task {
-            await pokemonManager.loadMore(firstCall: true)
+        .onAppear {
+            pokemonManager.loadMore(firstCall: true)
         }
         .onChange(of: searchField) {
             pokemonManager.filterList(by: $0)
