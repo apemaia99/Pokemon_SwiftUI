@@ -12,7 +12,7 @@ final class PokemonManager: ObservableObject {
     
     private let networkService = NetworkService()
     
-    @Published private(set) var pokemonIndex: PokemonIndex?
+    private var pokemonIndex: PokemonIndex?
     @Published private(set) var pokemonList: [Pokemon] = []
     @Published private(set) var pokemonFiltered: [Pokemon] = []
     private var orderingMode: OrderMode = .standard
