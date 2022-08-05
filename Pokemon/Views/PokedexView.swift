@@ -11,6 +11,7 @@ struct PokedexView: View {
     
     @EnvironmentObject private var pokemonManager: PokemonManager
     @State private var searchField: String = ""
+    @State private var orderingMode: PokemonManager.OrderMode = .standard
     
     var body: some View {
         NavigationView {
@@ -21,18 +22,20 @@ struct PokedexView: View {
                     PokedexRow(pokemon: pokemon)
                 }.task {
                     if pokemon == pokemonManager.pokemonList.last {
-                        await pokemonManager.loadMore()
+                        await pokemonManager.loadPokemons()
                     }
                 }
             }
             .toolbar {
-                Menu {
-                    Button("Alphabetical") { pokemonManager.orderList(by: .alphabetical) }
-                    Button("Reverse") { pokemonManager.orderList(by: .reverse) }
-                    Button("Standard") { pokemonManager.orderList(by: .standard) }
-                } label: {
-                    Label("Order Menu", systemImage: "arrow.up.arrow.down.circle.fill")
-                        .font(.title2)
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Picker(selection: $orderingMode) {
+                        ForEach(PokemonManager.OrderMode.allCases, id: \.self) { mode in
+                            Text(mode.rawValue).tag(mode)
+                        }
+                    } label: {
+                        Label("Order Menu", systemImage: "arrow.up.arrow.down.circle.fill")
+                            .font(.title2)
+                    }.pickerStyle(.menu)
                 }
             }
             .searchable(text: $searchField, placement: .toolbar, prompt: "Find a Pokemon")
@@ -40,10 +43,13 @@ struct PokedexView: View {
         }
         .navigationViewStyle(.stack)
         .task {
-            await pokemonManager.loadMore(firstCall: true)
+            await pokemonManager.loadPokemons(firstCall: true)
         }
         .onChange(of: searchField) {
-            pokemonManager.filterList(by: $0)
+            pokemonManager.filterPokemons(by: $0)
+        }
+        .onChange(of: orderingMode) {
+            pokemonManager.sortPokemons(by: $0)
         }
     }
 }
