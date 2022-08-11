@@ -11,7 +11,7 @@
     <li>UI has been implemented implemented with SwiftUI.</li>
     <li>Images are downloaded with caching using the new SwiftUI <a href="https://developer.apple.com/documentation/SwiftUI/AsyncImage">AsyncImage</a> view.</li>
     <li>The http client for API requests leverage the latest <a href="https://docs.swift.org/swift-book/LanguageGuide/Concurrency.html">Swift Concurrency Features</a> (Async-Await/Actors) because of that, all async methods can potentially been suspended awaiting results, this implies also a better reading and reasoning compared to the traditional callbacks.</li>
-    <li>Because the pokemon count amount to 1154, is unrealistic to download everything, so it has been implemented also a pagination system, that download other pokemons while scrolling.</li>
+    <li>Because the pokemon count amount to 1154, is unrealistic to download everything in one shot, so it has been implemented also a pagination system, that download other pokemons while scrolling.</li>
     <li>Furthermore with <a href="https://developer.apple.com/documentation/swift/withthrowingtaskgroup(of:returning:body:)">withThrowingTaskGroup</a> we are able to download data in parallel instead of a sequential async requests.</li>
   </ul>
 </body>
