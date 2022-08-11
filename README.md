@@ -8,8 +8,8 @@
   <p>This is a sample Project for fetching data from <a href="https://pokeapi.co">PokeAPI</a> in Swift &amp; SwiftUI</p>
   <ul>
     <li>This Application is full written in Swift.</li>
-    <li>UI is implemented with SwiftUI.</li>
-    <li>Images are downloaded with caching via new <a href="https://developer.apple.com/documentation/SwiftUI/AsyncImage">AsyncImage</a> component provided by SwiftUI.</li>
-    <li>The http client for API requests leverage the latest <a href="https://docs.swift.org/swift-book/LanguageGuide/Concurrency.html">Swift Concurrency Features</a> (Async-Await/Actors) because of that, all async methods can potentially been suspended awaiting result this implies also a better reading and reasoning compared to the traditional callbacks.</li>
+    <li>UI has been implemented implemented with SwiftUI.</li>
+    <li>Images are downloaded with caching using the new SwiftUI <a href="https://developer.apple.com/documentation/SwiftUI/AsyncImage">AsyncImage</a> view.</li>
+    <li>The http client for API requests leverage the latest <a href="https://docs.swift.org/swift-book/LanguageGuide/Concurrency.html">Swift Concurrency Features</a> (Async-Await/Actors) because of that, all async methods can potentially been suspended awaiting results, this implies also a better reading and reasoning compared to the traditional callbacks.</li>
   </ul>
 </body>
